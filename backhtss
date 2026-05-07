@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. THE PROXY RULE: 
+  # If someone asks for /uploads/, fetch it from port 5000 and STOP here.
+  # The [P] flag makes it a proxy, [L] makes it the last rule.
+  RewriteRule ^uploads/(.*)$ http://127.0.0.1:5000/uploads/$1 [P,L]
+
+  # 2. THE REACT RULES:
+  # Everything else goes to the React app
+  RewriteRule ^index\.html$ - [L]
+  
+  # Skip these rules if the file actually exists in public_html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Also skip if it's the uploads folder (to be safe)
+  RewriteCond %{REQUEST_URI} !^/uploads/
+  
+  RewriteRule . /index.html [L]
+</IfModule>

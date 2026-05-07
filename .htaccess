@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # अगर URL में /uploads है, तो उसे यहाँ Ignore करें ताकि ग्लोबल प्रॉक्सी उसे पकड़ सके
+  RewriteRule ^uploads/ - [L]
+
+  # बाकी React के रूल्स
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
