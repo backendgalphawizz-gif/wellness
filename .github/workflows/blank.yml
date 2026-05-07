@@ -16,7 +16,7 @@ jobs:
       - name: Deploy via Rsync
         uses: Burnett01/rsync-deployments@7.0.0
         with:
-          switches: -avzr --delete
+          switches: -avzr
           path: ./
           remote_path: /home/${{ secrets.SERVER_USER }}/public_html/wellness.developmentalphawizz.com/
           remote_host: ${{ secrets.SERVER_IP }}
